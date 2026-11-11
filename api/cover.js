@@ -74,17 +74,17 @@ module.exports = async (req, res) => {
     // warm shade along the bottom so the white text reads on the light photo
     h("div", {
       position: "absolute", top: 0, left: 0, width: W, height: H, display: "flex",
-      backgroundImage: "linear-gradient(0deg, rgba(92,66,40,0.62) 0%, rgba(92,66,40,0.30) 42%, rgba(92,66,40,0) 70%)",
+      backgroundImage: "linear-gradient(0deg, rgba(92,66,40,0.58) 0%, rgba(92,66,40,0.50) 38%, rgba(92,66,40,0.30) 60%, rgba(92,66,40,0) 82%)",
     }),
     // greeting block: centered, inside the area that stays visible on phones
     h(
       "div",
       {
-        position: "absolute", left: 0, bottom: 52, width: W, display: "flex", flexDirection: "column",
+        position: "absolute", left: 0, bottom: 150, width: W, display: "flex", flexDirection: "column",
         alignItems: "center", color: ivory, textShadow,
       },
       h("div", { fontFamily: "Jost", fontSize: 24, letterSpacing: 6, textTransform: "uppercase", marginBottom: 6, display: "flex" }, date),
-      h("div", { fontFamily: "Cormorant", fontWeight: 500, fontSize: 104, lineHeight: 1.05, display: "flex" }, `${greetingFor(hour)}, ${name}`),
+      h("div", { fontFamily: "Cormorant", fontWeight: 500, fontSize: 94, lineHeight: 1.05, display: "flex" }, `${greetingFor(hour)}, ${name}`),
       h("div", { fontFamily: "Jost", fontSize: 26, letterSpacing: 7, textTransform: "uppercase", marginTop: 10, display: "flex" }, tagline)
     ),
     // quote on the right, as in the mockup (cropped away on phones on purpose)

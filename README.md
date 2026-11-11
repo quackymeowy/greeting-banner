@@ -23,3 +23,18 @@ A dynamic header banner for Notion dashboards:
 | `focus` | 30% 50% | which part of the photo stays visible when cropped |
 
 Greeting hours: morning 5:00–11:59, afternoon 12:00–16:59, evening 17:00–4:59.
+
+---
+
+# Dynamic cover (Notion page cover)
+
+`/api/cover` returns a JPEG drawn fresh on each request (runs on Vercel), so it can sit in the real Notion cover slot:
+greeting by Los Angeles time + today's date + tagline + quote, on `bg.jpg`.
+
+**Use in Notion:** hover the cover → Change cover → Link → `https://<your-vercel-app>.vercel.app/api/cover`
+
+- The image has no live clock (it is a picture, not a page). It refreshes when the page is opened; cached up to 5 minutes.
+- Text sits inside the area Notion never crops; the quote is placed so it is either fully visible (desktop, narrow window) or fully hidden (phone).
+- Same parameters as the embed: `name`, `tz`, `tagline`, `quote`. Add `hour=9` / `hour=14` / `hour=20` to preview morning / afternoon / evening.
+
+Deploy: import this repo in Vercel (Add New → Project), no settings needed.

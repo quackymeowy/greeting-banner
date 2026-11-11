@@ -1,0 +1,13 @@
+{
+  "name": "greeting-banner",
+  "private": true,
+  "description": "Dynamic greeting cover image for Notion",
+  "engines": { "node": "22.x" },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.2.6",
+    "@fontsource/jost": "^5.2.6",
+    "@resvg/resvg-js": "^2.6.2",
+    "satori": "^0.63.2",
+    "sharp": "^0.35.5"
+  }
+}

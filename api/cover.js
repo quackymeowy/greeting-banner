@@ -17,13 +17,13 @@ const path = require("path");
 const W = 2400;
 const H = 500;
 
-// Background photo lives at the repo root (shared with the embed banner); fonts come from npm packages
-const BG = "data:image/jpeg;base64," + fs.readFileSync(path.join(__dirname, "..", "bg.jpg")).toString("base64");
-const font = (p) => fs.readFileSync(require.resolve(p));
+// Photo and fonts live at the repo root (bundled via vercel.json includeFiles)
+const asset = (f) => fs.readFileSync(path.join(__dirname, "..", f));
+const BG = "data:image/jpeg;base64," + asset("bg.jpg").toString("base64");
 const FONTS = [
-  { name: "Cormorant", data: font("@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-normal.woff"), weight: 500, style: "normal" },
-  { name: "Cormorant", data: font("@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-italic.woff"), weight: 500, style: "italic" },
-  { name: "Jost", data: font("@fontsource/jost/files/jost-latin-400-normal.woff"), weight: 400, style: "normal" },
+  { name: "Cormorant", data: asset("cg-500.woff"), weight: 500, style: "normal" },
+  { name: "Cormorant", data: asset("cg-500i.woff"), weight: 500, style: "italic" },
+  { name: "Jost", data: asset("jost-400.woff"), weight: 400, style: "normal" },
 ];
 
 const DEFAULTS = {

@@ -170,7 +170,7 @@
   var taglines = p.get("tagline") ? p.get("tagline").split("|") : DEFAULTS.taglines;
   var quote = p.has("quote") ? p.get("quote").split("|").filter(Boolean) : DEFAULTS.quote;
 
-  try { new Intl.DateTimeFormat("en-US", { timeZone: tz }); } catch (e) { tz = DEFAULTS.tz; }
+  try { new Date().toLocaleString("en-US", { timeZone: tz }); } catch (e) { tz = DEFAULTS.tz; }
 
   // Photo fades in once loaded
   var photo = document.getElementById("photo");
@@ -190,12 +190,12 @@
     });
   } else { q.style.display = "none"; }
 
+  // Uses Date.toLocale* (not Intl.DateTimeFormat directly), which is more robust against
+  // browser extensions that override the page's time zone.
   function parts(date) {
-    var out = {};
-    new Intl.DateTimeFormat("en-US", {
-      timeZone: tz, hour: "numeric", hourCycle: "h23", year: "numeric", month: "numeric", day: "numeric"
-    }).formatToParts(date).forEach(function (x) { out[x.type] = x.value; });
-    return out;
+    var ymd = date.toLocaleDateString("en-CA", { timeZone: tz }).split("-");
+    var hour = parseInt(date.toLocaleString("en-US", { timeZone: tz, hour: "numeric", hourCycle: "h23" }), 10);
+    return { year: ymd[0], month: ymd[1], day: ymd[2], hour: hour };
   }
   function greetingFor(hour) {
     if (hour >= 5 && hour < 12) return "Good morning";
@@ -213,15 +213,15 @@
   function render() {
     var now = new Date();
     var pt = parts(now);
-    var hour = parseInt(pt.hour, 10) % 24;
+    var hour = pt.hour % 24;
 
     el.greeting.textContent = greetingFor(hour) + ", " + name + (emoji ? " " + emoji : "");
-    el.date.textContent = new Intl.DateTimeFormat("en-US", {
+    el.date.textContent = now.toLocaleDateString("en-US", {
       timeZone: tz, weekday: "long", month: "long", day: "numeric"
-    }).format(now);
-    el.time.textContent = new Intl.DateTimeFormat("en-US", {
+    });
+    el.time.textContent = now.toLocaleTimeString("en-US", {
       timeZone: tz, hour: "numeric", minute: "2-digit"
-    }).format(now);
+    });
 
     var dayNumber = Math.floor(Date.UTC(+pt.year, +pt.month - 1, +pt.day) / 86400000);
     el.tagline.textContent = taglines[dayNumber % taglines.length];

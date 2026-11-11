@@ -1,5 +1,5 @@
 {
   "functions": {
-    "api/cover.js": { "includeFiles": "bg.jpg", "memory": 1024, "maxDuration": 15 }
+    "api/cover.js": { "includeFiles": "{bg.jpg,*.woff}", "memory": 1024, "maxDuration": 15 }
   }
 }
